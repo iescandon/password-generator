@@ -5,22 +5,26 @@ var uppercaseLettersArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "
 var lowercaseLettersArray = ["a", "b", "c",	"d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var numbersArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var specialCharactersArray = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@"];
+var passwordLength;
+var uppercaseLetters;
+var lowercaseLetters;
+var numbers;
+var specialCharacters;
 
 
 //  Ask user for password criteria, store in variables, create an object, return object
 function passwordQuestions() {
   resetApp();
-  var passwordLength = prompt('How long would you like your password to be? Choose a number between 8 - 128.');
+  passwordLength = prompt('How long would you like your password to be? Choose a number between 8 - 128.');
+  uppercaseLetters = confirm('Would you like uppercase letters?');
+  lowercaseLetters = confirm('Would you like lowercase letters?');
+  numbers = confirm('Would you like numbers?');
+  specialCharacters = confirm('Would you like special characters?');
 
-  if (passwordLength < 8 || passwordLength > 128) {
-      alert('Your selected password length has to be at least 8 characters and no more than 128.');
-      passwordQuestions();
+  if (passwordLength < 8 || passwordLength > 128 || passwordLength === null) {
+    alert('Your selected password length has to be at least 8 characters and no more than 128.');
+    passwordQuestions();
   }
-  
-  var uppercaseLetters = confirm('Would you like uppercase letters?');
-  var lowercaseLetters = confirm('Would you like lowercase letters?');
-  var numbers = confirm ('Would you like numbers?');
-  var specialCharacters = confirm ('Would you like special characters?');
 
   if (!uppercaseLetters && !lowercaseLetters && !numbers && !specialCharacters) {
       alert('Please select at least one character type to include in your password.');
@@ -69,18 +73,23 @@ function generatePassword() {
 }
 
 
-// Function to reset passwordCharacters array
-function resetApp() {
-    passwordCharacters = [];
-}
-
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword(); //gp => func 
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+}
+
+
+// Function to reset passwordCharacters array
+function resetApp() {
+    passwordCharacters = [];
+    passwordLength;
+    uppercaseLetters;
+    lowercaseLetters;
+    numbers;
+    specialCharacters;
 }
 
 
